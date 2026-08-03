@@ -1,19 +1,3 @@
-// import DashboardLayout from "../layouts/DashboardLayout";
-
-// function UserDashboard() {
-//   return (
-//     <DashboardLayout>
-//       <h1>User Dashboard</h1>
-
-//       <p>Token: A101</p>
-//       <p>Position: 5</p>
-//       <p>ETA: 20 mins</p>
-//       <p>Branch: Main Branch</p>
-//     </DashboardLayout>
-//   );
-// }
-
-// export default UserDashboard;
 
 import DashboardLayout from "../layouts/DashboardLayout";
 import StatCard from "../components/dashboard/StatCard";
@@ -22,18 +6,7 @@ import axios from "axios";
 // import { useEffect } from "react";
 import { useEffect, useState } from "react";
 function UserDashboard() {
-    // const [currentServing, setCurrentServing] = useState("A96");
-//     const fetchServingToken = async () => {
-
-//     const { data } = await axios.get(
-//         "http://localhost:5000/api/tokens/current-serving"
-//     );
-
-//     if (data) {
-//         setCurrentServing(data.tokenNumber);
-//     }
-
-// };
+   
 const fetchServingToken = async () => {
 
     try {
@@ -43,7 +16,8 @@ const fetchServingToken = async () => {
         );
 
         const { data } = await axios.get(
-            "http://localhost:5000/api/tokens/current-serving",
+            // "http://localhost:5000/api/tokens/current-serving",
+            `${import.meta.env.VITE_API_URL}/api/tokens/current-serving`,
             {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
@@ -73,7 +47,8 @@ const generateToken = async () => {
 "6a2ca3c287da669e29e8b4d0";
 
         const { data } = await axios.post(
-            "http://localhost:5000/api/tokens",
+            // "http://localhost:5000/api/tokens",
+           `${import.meta.env.VITE_API_URL}/api/tokens`,
             {
                 branchId,
             },
@@ -103,71 +78,6 @@ const [etaData, setEtaData] = useState(null);
 }, [queueData]);
 const [currentServing, setCurrentServing] = useState("-");
 
-  // useEffect(() => {
-    
-  // const fetchMyToken = async () => {
-
-  //   try {
-
-  //     const user = JSON.parse(
-  //       localStorage.getItem("userInfo")
-  //     );
-
-  //     const { data } = await axios.get(
-  //       "http://localhost:5000/api/tokens/my-token",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${user.token}`,
-  //         },
-  //       }
-  //     );
-
-  //     setQueueData(data);
-
-  //   } catch (err) {
-
-  //     console.log(err);
-
-  //   }
-
-  // };
-
-  // fetchMyToken();
-
-  //   socket.on("tokenCalled", (data) => {
-
-  //     console.log(
-  //       "Token Called:",
-  //       data
-  //     );
-
-  //     setCurrentServing(
-  //       data.tokenNumber
-  //     );
-
-  //   });
-
-  //   socket.on("tokenCompleted", (data) => {
-  //     console.log("Token Completed:", data);
-  //   });
-
-  //   socket.on("tokenHeld", (data) => {
-  //     console.log("Token Held:", data);
-  //   });
-
-  //   socket.on("tokenRecalled", (data) => {
-  //     console.log("Token Recalled:", data);
-  //   });
-
-  //   return () => {
-  //     socket.off("tokenCalled");
-  //     socket.off("tokenCompleted");
-  //     socket.off("tokenHeld");
-  //     socket.off("tokenRecalled");
-  //   };
-  //   fetchServingToken();
-
-  // }, []);
 
     const fetchMyToken = async () => {
 
@@ -178,7 +88,8 @@ const [currentServing, setCurrentServing] = useState("-");
             );
 
             const { data } = await axios.get(
-                "http://localhost:5000/api/tokens/my-token",
+                // "http://localhost:5000/api/tokens/my-token",
+               `${import.meta.env.VITE_API_URL}/api/tokens/my-token`,
                 {
                     headers: {
                         Authorization: `Bearer ${user.token}`,
@@ -188,7 +99,8 @@ const [currentServing, setCurrentServing] = useState("-");
 
             setQueueData(data);
              const etaRes = await axios.get(
-            `http://localhost:5000/api/tokens/${data.tokenId}/eta`,
+            // `http://localhost:5000/api/tokens/${data.tokenId}/eta`,
+           `${import.meta.env.VITE_API_URL}/api/tokens/${data.tokenId}/eta`,
             {
                 headers: {
                     Authorization: `Bearer ${user.token}`,
